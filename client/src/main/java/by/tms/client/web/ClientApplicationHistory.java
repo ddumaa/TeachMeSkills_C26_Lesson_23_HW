@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Arrays;
 
 public class ClientApplicationHistory {
     public void clientAppHistory(StorageData storageData, ConsoleWriter consoleWriter) {
@@ -34,7 +35,7 @@ public class ClientApplicationHistory {
         }
 
         StorageData result = gson.fromJson(response.body(), StorageData.class);
-        String s = String.valueOf(result.getOperationsStories());
+        String s = Arrays.toString(StorageData.getOperationsStories().toArray());
         consoleWriter.write(s);
     }
 }

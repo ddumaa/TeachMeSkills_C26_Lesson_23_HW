@@ -9,7 +9,8 @@ import java.util.List;
 @Getter
 public class StorageData {
     @Setter
-    private static List<Double> operationsStories;
+    @Getter
+    private static List<Double> operationsStories = new ArrayList<>();
     private final List<Double> numbers;
     private final List <Character> operations;
     @Setter
@@ -18,7 +19,6 @@ public class StorageData {
     public StorageData(){
         numbers = new ArrayList<>();
         operations = new ArrayList<>();
-        operationsStories = new ArrayList<>();
     }
     public void addNumbers (double number){
         numbers.add(number);

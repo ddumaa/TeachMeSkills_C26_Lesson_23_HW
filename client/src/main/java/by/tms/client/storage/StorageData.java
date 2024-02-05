@@ -26,7 +26,7 @@ public class StorageData {
     public void addOperations (char operation){
         operations.add(operation);
     }
-    public void save(Double d) {
+    public void save(double d) {
         operationsStories.add(d);
     }
 }

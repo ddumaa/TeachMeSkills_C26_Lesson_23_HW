@@ -18,7 +18,7 @@ public class StorageData {
         operations = new ArrayList<>();
         operationsStories = new ArrayList<>();
     }
-    public void save(Double d) {
+    public void save(double d) {
         operationsStories.add(d);
     }
 }

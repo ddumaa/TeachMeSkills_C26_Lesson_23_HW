@@ -6,16 +6,13 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class StorageData {
-    @Getter
     @Setter
     private List<Double> operationsStories;
-    @Getter
-    private List<Double> numbers;
-    @Getter
-    private List <Character> operations;
+    private final List<Double> numbers;
+    private final List <Character> operations;
     @Setter
-    @Getter
     private double result;
 
     public StorageData(){

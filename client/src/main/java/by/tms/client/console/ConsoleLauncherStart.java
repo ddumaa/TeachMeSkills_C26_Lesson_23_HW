@@ -12,10 +12,11 @@ public class ConsoleLauncherStart {
 
     public void launcherStart() {
         while (true) {
-            consoleWriter.write("Выберите операцию:\n" +
-                    "1: Произвести расчёт.\n" +
-                    "2: Посмотреть историю результатов предыдущих расчётов.\n" +
-                    "3: Завершить работу.");
+            consoleWriter.write("""
+                    Выберите операцию:
+                    1: Произвести расчёт.
+                    2: Посмотреть историю результатов предыдущих расчётов.
+                    3: Завершить работу.""");
             int op = (int) consoleReader.readNum();
             String work = "Y";
             if (op == 1) {

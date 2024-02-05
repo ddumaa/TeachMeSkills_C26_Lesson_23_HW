@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 public class StorageData {
-    private final List<Double> operationsStories;
+    private static final List<Double> operationsStories = new ArrayList<>();
     private final List<Double> numbers;
     private final List <Character> operations;
     @Setter
@@ -16,7 +16,6 @@ public class StorageData {
     public StorageData(){
         numbers = new ArrayList<>();
         operations = new ArrayList<>();
-        operationsStories = new ArrayList<>();
     }
     public void save(double d) {
         operationsStories.add(d);

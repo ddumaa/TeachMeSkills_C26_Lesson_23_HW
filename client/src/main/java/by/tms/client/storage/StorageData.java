@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 public class StorageData {
     @Setter
-    private List<Double> operationsStories;
+    private static List<Double> operationsStories;
     private final List<Double> numbers;
     private final List <Character> operations;
     @Setter

@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StorageData {
-    private final List<Double> operationsStories = new ArrayList<>();
     @Getter
-    private final List<Double> numbers;
+    @Setter
+    private List<Double> operationsStories;
     @Getter
-    private final List <Character> operations;
+    private List<Double> numbers;
+    @Getter
+    private List <Character> operations;
     @Setter
     @Getter
     private double result;
@@ -19,6 +21,7 @@ public class StorageData {
     public StorageData(){
         numbers = new ArrayList<>();
         operations = new ArrayList<>();
+        operationsStories = new ArrayList<>();
     }
     public void addNumbers (double number){
         numbers.add(number);
@@ -28,9 +31,5 @@ public class StorageData {
     }
     public void save(Double d) {
         operationsStories.add(d);
-    }
-
-    public List<Double> findAll() {
-        return new ArrayList<>(operationsStories);
     }
 }

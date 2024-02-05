@@ -1,20 +1,39 @@
 package by.tms.client.console;
 
+import by.tms.client.storage.StorageData;
+
 public class ConsoleLauncherStart {
-    ConsoleApplication consoleApplication = new ConsoleApplication();
+    ConsoleReceptionOperation consoleApplication = new ConsoleReceptionOperation();
     ConsoleReader consoleReader = new ConsoleReader();
     ConsoleWriter consoleWriter = new ConsoleWriter();
     ConsoleManagerError consoleManagerError = new ConsoleManagerError();
-    public void launcherStart(){
-        String work = "Y";
-        consoleWriter.write("Калькулятор включён");
+    HistoryOutput historyOutput = new HistoryOutput();
+    StorageData storageData = new StorageData();
+
+    public void launcherStart() {
         while (true) {
-            if (work.equals("N")) {
+            consoleWriter.write("Выберите операцию:\n" +
+                    "1: Произвести расчёт.\n" +
+                    "2: Посмотреть историю результатов предыдущих расчётов.\n" +
+                    "3: Завершить работу.");
+            int op = (int) consoleReader.readNum();
+            String work = "Y";
+            if (op == 1) {
+                while (true) {
+                    if (work.equals("N")) {
+                        break;
+                    } else if (work.equals("Y")) {
+                        consoleApplication.run(storageData);
+                        consoleWriter.write("Хотите продолжить? Да - 'Y', Нет - 'N'");
+                        work = consoleReader.readOperationType().toUpperCase();
+                    } else {
+                        consoleManagerError.writeMessageClearScanner();
+                    }
+                }
+            } else if (op == 2) {
+                historyOutput.run(storageData);
+            } else if (op == 3) {
                 break;
-            } else if (work.equals("Y")) {
-                consoleApplication.run();
-                consoleWriter.write("Хотите продолжить? Да - 'Y', Нет - 'N'");
-                work = consoleReader.readOperationType().toUpperCase();
             } else {
                 consoleManagerError.writeMessageClearScanner();
             }

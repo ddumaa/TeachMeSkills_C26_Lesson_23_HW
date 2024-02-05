@@ -11,6 +11,7 @@ public class ServerApplication {
             HttpServer httpServer
                     = HttpServer.create(new InetSocketAddress("localhost", 8080), 1);
             httpServer.createContext("/calculate", new CalculatorHttpHandler());
+            httpServer.createContext("/history", new HistoryHttpHandler());
             httpServer.start();
         } catch (IOException e) {
             throw new RuntimeException(e);

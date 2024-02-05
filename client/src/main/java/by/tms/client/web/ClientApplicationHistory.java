@@ -11,15 +11,15 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class ClientApplication {
-    public void clientApp(StorageData storageData, ConsoleWriter consoleWriter) {
+public class ClientApplicationHistory {
+    public void clientAppHistory(StorageData storageData, ConsoleWriter consoleWriter) {
         Gson gson = new Gson();
         String json = gson.toJson(storageData);
 
         HttpRequest request = null;
         try {
             request = HttpRequest.newBuilder()
-                    .uri(new URI("http://localhost:8080/calculate"))
+                    .uri(new URI("http://localhost:8080/history"))
                     .headers("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(json))
                     .build();
@@ -37,8 +37,7 @@ public class ClientApplication {
             throw new RuntimeException(e);
         }
         StorageData result = gson.fromJson(response.body(), StorageData.class);
-        consoleWriter.write(String.valueOf(result.getResult()));
-        storageData.getNumbers().clear();
-        storageData.getOperations().clear();
+        String s = result.getOperationsStories().toString();
+        consoleWriter.write(s);
     }
 }

@@ -9,7 +9,6 @@ public class ConsoleLauncherStart {
     HistoryOutput historyOutput = new HistoryOutput();
 
     public void launcherStart(StorageData storageData) {
-        startLoop:
         while (true) {
             consoleWriter.write("""
                     Выберите операцию:
@@ -19,10 +18,8 @@ public class ConsoleLauncherStart {
             int op = (int) consoleReader.readNum();
             String work = "Y";
             if (op == 1) {
-                while (true) {
-                    if (work.equals("N")) {
-                        break;
-                    } else if (work.equals("Y")) {
+                while (!work.equals("N")) {
+                    if (work.equals("Y")) {
                         consoleApplication.run(storageData);
                     } else {
                         consoleWriter.write("Ошибка ввода");

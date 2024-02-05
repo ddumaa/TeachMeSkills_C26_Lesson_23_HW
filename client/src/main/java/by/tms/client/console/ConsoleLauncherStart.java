@@ -6,10 +6,10 @@ public class ConsoleLauncherStart {
     ConsoleReceptionOperation consoleApplication = new ConsoleReceptionOperation();
     ConsoleReader consoleReader = new ConsoleReader();
     ConsoleWriter consoleWriter = new ConsoleWriter();
-    ConsoleManagerError consoleManagerError = new ConsoleManagerError();
     HistoryOutput historyOutput = new HistoryOutput();
 
     public void launcherStart(StorageData storageData) {
+        startLoop:
         while (true) {
             consoleWriter.write("""
                     Выберите операцию:
@@ -24,18 +24,18 @@ public class ConsoleLauncherStart {
                         break;
                     } else if (work.equals("Y")) {
                         consoleApplication.run(storageData);
-                        consoleWriter.write("Хотите продолжить? Да - 'Y', Нет - 'N'");
-                        work = consoleReader.readOperationType().toUpperCase();
                     } else {
-                        consoleManagerError.writeMessageClearScanner();
+                        consoleWriter.write("Ошибка ввода");
                     }
+                    consoleWriter.write("Хотите продолжить? Да - 'Y', Нет - 'N'");
+                    work = consoleReader.readOperationType().toUpperCase();
                 }
             } else if (op == 2) {
                 historyOutput.run(storageData);
             } else if (op == 3) {
                 break;
             } else {
-                consoleManagerError.writeMessageClearScanner();
+                consoleWriter.write("Ошибка ввода");
             }
         }
     }

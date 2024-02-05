@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StorageData {
+    @Getter
     private List<Double> operationsStories;
     @Getter
     private List<Double> numbers;

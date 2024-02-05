@@ -14,14 +14,12 @@ import java.net.http.HttpResponse;
 public class ClientApplicationHistory {
     public void clientAppHistory(StorageData storageData, ConsoleWriter consoleWriter) {
         Gson gson = new Gson();
-        String json = gson.toJson(storageData);
 
         HttpRequest request = null;
         try {
             request = HttpRequest.newBuilder()
                     .uri(new URI("http://localhost:8080/history"))
-                    .headers("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(json))
+                    .GET()
                     .build();
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
@@ -31,13 +29,12 @@ public class ClientApplicationHistory {
         HttpResponse<String> response = null;
         try {
             response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+
         StorageData result = gson.fromJson(response.body(), StorageData.class);
-        String s = result.getOperationsStories().toString();
+        String s = String.valueOf(result.getOperationsStories());
         consoleWriter.write(s);
     }
 }

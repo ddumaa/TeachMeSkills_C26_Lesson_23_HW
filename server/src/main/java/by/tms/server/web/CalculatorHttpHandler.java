@@ -6,35 +6,39 @@ import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class CalculatorHttpHandler implements HttpHandler {
     private final OperationService service = new OperationService();
     private final Gson gson = new Gson();
+    private StorageData storageData;
+
+    public CalculatorHttpHandler(StorageData storageData) {
+        this.storageData = storageData;
+    }
 
     public void handle(HttpExchange exchange) throws IOException {
-//TODO доработать метод
-        InputStream requestBody = exchange.getRequestBody();
-        byte[] bytes = requestBody.readAllBytes();
+        try (InputStreamReader isr = new InputStreamReader(exchange.getRequestBody(), StandardCharsets.UTF_8);
+             BufferedReader br = new BufferedReader(isr)) {
 
-        StringBuilder s = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+            String requestBody = sb.toString();
 
-        for (byte aByte : bytes) {
-            char aByte1 = (char) aByte;
-            s.append(aByte1);
+            storageData = gson.fromJson(requestBody, StorageData.class);
+            StorageData calculate = service.calculate(storageData);
+            String json = gson.toJson(calculate);
+
+            exchange.sendResponseHeaders(200, json.length());
+            exchange.getResponseHeaders().add("Content-Type", "application/json");
+
+            PrintWriter printWriter = new PrintWriter(exchange.getResponseBody());
+            printWriter.print(json);
+            printWriter.flush();
         }
-
-        StorageData storageData = gson.fromJson(s.toString(), StorageData.class);
-        StorageData calculate = service.calculate(storageData);
-        String json = gson.toJson(calculate);
-
-        exchange.sendResponseHeaders(200, json.length());
-        exchange.getResponseHeaders().add("Content-Type", "application/json");
-
-        PrintWriter printWriter = new PrintWriter(exchange.getResponseBody());
-        printWriter.print(json);
-        printWriter.flush();
     }
 }

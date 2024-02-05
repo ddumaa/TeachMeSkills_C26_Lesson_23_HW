@@ -8,9 +8,8 @@ public class ConsoleLauncherStart {
     ConsoleWriter consoleWriter = new ConsoleWriter();
     ConsoleManagerError consoleManagerError = new ConsoleManagerError();
     HistoryOutput historyOutput = new HistoryOutput();
-    StorageData storageData = new StorageData();
 
-    public void launcherStart() {
+    public void launcherStart(StorageData storageData) {
         while (true) {
             consoleWriter.write("""
                     Выберите операцию:
